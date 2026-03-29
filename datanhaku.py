@@ -2,6 +2,7 @@ import requests
 import pandas as pd
 import io
 from urllib.parse import quote
+from database import get_connection
 
 API_KEY = "2387efe836c710cf3e87c701abbb95def7a5b4ec345a73a66b7c4034830ce0b5"
 
@@ -45,13 +46,17 @@ def download_file_by_location(location_id, year, month, day):
     if response.status_code == 200:
         df = pd.read_csv(io.BytesIO(response.content), compression='gzip')
 
+conn=get_connection()
+cursor=conn.cursor()
+
 for _, row in dif.iterrows():
     cursor.execute("""
     INSERT INTO Mittaukset (sensoriID, arvo, aika)
     VALUES (%s,%s,%s)
     """,(row ["sensoriId"],row ["arvo"],row ["aika"]))
     conn.commit()
-
+cursor.close()
+conn.close()
         
         print("Tallennettu:", f"{location_id}-{date_str}.csv")
     else:
