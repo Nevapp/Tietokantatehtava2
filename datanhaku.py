@@ -59,8 +59,8 @@ for _, row in df.iterrows():
     conn.close()
         
     print("Tallennettu:", f"{location_id}-{date_str}.csv")
-    else:
-        print("Ei dataa, status:", response.status_code)
+else:
+    print("Ei dataa, status:", response.status_code)
 
 
 if __name__ == "__main__":
