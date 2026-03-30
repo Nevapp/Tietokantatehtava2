@@ -2,7 +2,7 @@ import requests
 import pandas as pd
 import io
 from urllib.parse import quote
-from database import get_connection
+from databeissi import get_connection
 
 API_KEY = "2387efe836c710cf3e87c701abbb95def7a5b4ec345a73a66b7c4034830ce0b5"
 
